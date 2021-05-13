@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DirMng implements DirMngInterface{
+public class DirMng implements DirMngInterface {
     List<Directory> directoryList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
-    public void add(){
+    public void add() {
 //        read();
         Directory directory = new Directory();
         directory.input(directoryList);
@@ -17,7 +17,7 @@ public class DirMng implements DirMngInterface{
 
     public void showAll() {
 //        read();
-        for(Directory directory : directoryList){
+        for (Directory directory : directoryList) {
             directory.show();
         }
     }
@@ -29,29 +29,29 @@ public class DirMng implements DirMngInterface{
         do {
             System.out.println("Nhập số điện thoại");
             String phoneNum = sc.nextLine();
-            for(int i = 0;i<directoryList.size();i++){
-                if(directoryList.get(i).getPhoneNum().equals(phoneNum)){
+            for (int i = 0; i < directoryList.size(); i++) {
+                if (directoryList.get(i).getPhoneNum().equals(phoneNum)) {
                     index = i;
-                    exit=0;
+                    exit = 0;
                 }
             }
-            if(index==-1){
+            if (index == -1) {
                 System.out.println("Không tìm thấy !");
             }
-        }while (exit!=0);
+        } while (exit != 0);
         return index;
     }
 
-    public void showByPhoneNumber(){
+    public void showByPhoneNumber() {
         int index = search();
-        if(index!=-1){
+        if (index != -1) {
             directoryList.get(index).show();
         }
     }
 
     public void update() {
         int index = search();
-        if(index!=-1){
+        if (index != -1) {
             Directory directory = new Directory();
             directory.input(directoryList);
             directoryList.set(index, directory);
@@ -61,11 +61,11 @@ public class DirMng implements DirMngInterface{
 
     public void remove() {
         int index = search();
-        if(index!=-1){
+        if (index != -1) {
             directoryList.get(index).show();
             System.out.println("Nhấn Y để xóa, phím khác để bỏ qua");
             String input = sc.nextLine();
-            if(input.equals("Y")){
+            if (input.equals("Y")) {
                 directoryList.remove(index);
             }
             System.out.println("Không xóa nữa ");
@@ -76,11 +76,11 @@ public class DirMng implements DirMngInterface{
 
     public void save() {
         FileWriter fileWriter = null;
-        try{
+        try {
             fileWriter = new FileWriter(FILE_NAME);
             fileWriter.append("Tên,Số điện thoại, Địa chỉ,Email,Facebook");
             fileWriter.write("\n");
-            for(Directory directory : directoryList){
+            for (Directory directory : directoryList) {
                 fileWriter.append(directory.getName());
                 fileWriter.append(",");
                 fileWriter.append(directory.getPhoneNum());
@@ -95,10 +95,10 @@ public class DirMng implements DirMngInterface{
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try{
-                if(fileWriter!=null)
-                fileWriter.close();
+        } finally {
+            try {
+                if (fileWriter != null)
+                    fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -107,11 +107,15 @@ public class DirMng implements DirMngInterface{
 
     public void read() {
         BufferedReader br = null;
-        try{
+        try {
             String line;
             br = new BufferedReader(new FileReader(FILE_NAME));
-            while((line= br.readLine())!=null){
-
+            while ((line = br.readLine()) != null && line.isEmpty()) {
+                String fields[] = line.split(",");
+                for (int i = 0; i < directoryList.size(); i++) {
+                    System.out.println("Tên : " + fields[0] + "Số điện thoại : " + fields[1] + " Địa chỉ: " + fields[2] + " Email: " +
+                            fields[3] + " Facebook : " + fields[4]);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

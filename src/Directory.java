@@ -128,14 +128,10 @@ public class Directory implements Serializable {
 
     @Override
     public String toString() {
-        return "Directory{" +
-                "name='" + name + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", facebook='" + fb + '\'' +
-                '}';
+        return   "Tên: " + name + "\t" +
+                "Số điện thoai : " + phoneNum + "\t" +
+                "Địa chỉ : " + address + "\t" +
+                "Email: " + email + "\t" +
+                "Facebook : " + fb + "\t";
     }
-
-
 }
